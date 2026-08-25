@@ -628,9 +628,13 @@ setInterval(updateCountdown, 1000);
 /* ============================================================
    CLUE OF THE DAY
    ============================================================ */
-const dayNum = getDayNumber();
-document.getElementById("clue-day-num").textContent = dayNum;
-
+function renderClueOfDay() {
+  document.getElementById("clue-day-num").textContent = currentDayNum;
+  document.getElementById("clue-output").innerHTML = "";
+  const btn = document.getElementById("clue-reveal-btn");
+  btn.disabled = false;
+  btn.textContent = "Reveal";
+}
 document.getElementById("clue-reveal-btn").addEventListener("click", () => {
   const clue = getTodaysClue();
   document.getElementById("clue-output").innerHTML =
@@ -641,8 +645,8 @@ document.getElementById("clue-reveal-btn").addEventListener("click", () => {
 /* ============================================================
    MEMORY OF THE DAY
    ============================================================ */
-const unlockedMemories = MEMORIES.filter(m => m.unlockDay <= dayNum);
-let memoryPos = unlockedMemories.length - 1;
+let unlockedMemories = [];
+let memoryPos = 0;
 
 function renderMemory() {
   if (unlockedMemories.length === 0) {
@@ -660,9 +664,18 @@ function renderMemory() {
   document.getElementById("memory-prev").disabled = memoryPos === 0;
   document.getElementById("memory-next").disabled = memoryPos === unlockedMemories.length - 1;
 }
+function rebuildMemories(jumpToLatestNew) {
+  const previousCount = unlockedMemories.length;
+  unlockedMemories = MEMORIES.filter((m) => m.unlockDay <= currentDayNum);
+  if (jumpToLatestNew && unlockedMemories.length > previousCount) {
+    memoryPos = unlockedMemories.length - 1; // hop to the newly unlocked one
+  } else {
+    memoryPos = Math.min(memoryPos, Math.max(0, unlockedMemories.length - 1));
+  }
+  renderMemory();
+}
 document.getElementById("memory-prev").addEventListener("click", () => { memoryPos--; renderMemory(); });
 document.getElementById("memory-next").addEventListener("click", () => { memoryPos++; renderMemory(); });
-renderMemory();
 
 /* ============================================================
    PICK A STAR
@@ -672,62 +685,99 @@ const STAR_POSITIONS = [
   { x: 12, y: 30 }, { x: 28, y: 65 }, { x: 45, y: 20 }, { x: 58, y: 55 },
   { x: 72, y: 25 }, { x: 85, y: 60 }, { x: 50, y: 80 },
 ];
-const correctStarIndex = dayNum % STAR_POSITIONS.length;
 let starGameOver = false;
 
-STAR_POSITIONS.forEach((pos, i) => {
-  const btn = document.createElement("button");
-  btn.className = "pick-star" + (i === correctStarIndex ? " correct-glow" : "");
-  btn.textContent = "⭐";
-  btn.style.left = pos.x + "%";
-  btn.style.top = pos.y + "%";
-  btn.addEventListener("click", () => {
-    if (starGameOver) return;
-    const statusEl = document.getElementById("star-status");
-    if (i === correctStarIndex) {
-      starGameOver = true;
-      btn.classList.add("found");
-      const clue = getTodaysClue();
-      statusEl.innerHTML = `You found it ✨ <br>${clue.emoji} ${clue.text}`;
-    } else {
-      statusEl.textContent = WRONG_STAR_MESSAGES[Math.floor(Math.random() * WRONG_STAR_MESSAGES.length)];
-    }
+function renderStarPanel() {
+  starPanel.innerHTML = "";
+  document.getElementById("star-status").textContent = "";
+  starGameOver = false;
+  const correctStarIndex = currentDayNum % STAR_POSITIONS.length;
+
+  STAR_POSITIONS.forEach((pos, i) => {
+    const btn = document.createElement("button");
+    btn.className = "pick-star" + (i === correctStarIndex ? " correct-glow" : "");
+    btn.textContent = "⭐";
+    btn.style.left = pos.x + "%";
+    btn.style.top = pos.y + "%";
+    btn.addEventListener("click", () => {
+      if (starGameOver) return;
+      const statusEl = document.getElementById("star-status");
+      if (i === correctStarIndex) {
+        starGameOver = true;
+        btn.classList.add("found");
+        const clue = getTodaysClue();
+        statusEl.innerHTML = `You found it ✨ <br>${clue.emoji} ${clue.text}`;
+      } else {
+        statusEl.textContent = WRONG_STAR_MESSAGES[Math.floor(Math.random() * WRONG_STAR_MESSAGES.length)];
+      }
+    });
+    starPanel.appendChild(btn);
   });
-  starPanel.appendChild(btn);
-});
+}
 
 /* ============================================================
    WEEKLY MISSIONS
    ============================================================ */
-const currentWeek = Math.min(4, Math.ceil(dayNum / 7));
 const missionsList = document.getElementById("missions-list");
-MISSIONS.forEach((m) => {
-  const div = document.createElement("div");
-  const state = m.week < currentWeek ? "done" : m.week === currentWeek ? "active" : "locked";
-  div.className = "mission " + (state === "locked" ? "locked" : state === "active" ? "active" : "");
-  div.innerHTML = `
-    <div class="mission-week">Week ${m.week}${state === "done" ? " · Complete" : state === "locked" ? " · Locked" : ""}</div>
-    <div class="mission-title">${m.title}</div>
-    <div class="mission-desc">${state === "locked" ? "Unlocks in a future week." : m.desc}</div>
-  `;
-  missionsList.appendChild(div);
-});
+function renderMissions() {
+  const currentWeek = Math.min(4, Math.ceil(currentDayNum / 7));
+  missionsList.innerHTML = "";
+  MISSIONS.forEach((m) => {
+    const div = document.createElement("div");
+    const state = m.week < currentWeek ? "done" : m.week === currentWeek ? "active" : "locked";
+    div.className = "mission " + (state === "locked" ? "locked" : state === "active" ? "active" : "");
+    div.innerHTML = `
+      <div class="mission-week">Week ${m.week}${state === "done" ? " · Complete" : state === "locked" ? " · Locked" : ""}</div>
+      <div class="mission-title">${m.title}</div>
+      <div class="mission-desc">${state === "locked" ? "Unlocks in a future week." : m.desc}</div>
+    `;
+    missionsList.appendChild(div);
+  });
+}
 
 /* ============================================================
    STATS
    ============================================================ */
 const statsGrid = document.getElementById("stats-grid");
-STATS.forEach((s) => {
-  const unlocked = dayNum >= s.unlockDay;
-  const div = document.createElement("div");
-  div.className = "stat-card";
-  div.innerHTML = `
-    <div class="stat-emoji">${s.emoji}</div>
-    <div class="stat-value">${unlocked ? s.value : "🔒"}</div>
-    <div class="stat-label">${unlocked ? s.label : "Locked"}</div>
-  `;
-  statsGrid.appendChild(div);
-});
+function renderStats() {
+  statsGrid.innerHTML = "";
+  STATS.forEach((s) => {
+    const unlocked = currentDayNum >= s.unlockDay;
+    const div = document.createElement("div");
+    div.className = "stat-card";
+    div.innerHTML = `
+      <div class="stat-emoji">${s.emoji}</div>
+      <div class="stat-value">${unlocked ? s.value : "🔒"}</div>
+      <div class="stat-label">${unlocked ? s.label : "Locked"}</div>
+    `;
+    statsGrid.appendChild(div);
+  });
+}
+
+/* ============================================================
+   DAY-ROLLOVER WATCHER
+   All of the sections above depend on which day it is. This
+   renders them once on load, then re-checks the date every
+   minute in case the tab is left open across a day boundary —
+   only re-rendering the sections whose content actually changed.
+   ============================================================ */
+let currentDayNum = getDayNumber();
+renderClueOfDay();
+rebuildMemories(false);
+renderStarPanel();
+renderMissions();
+renderStats();
+
+setInterval(() => {
+  const freshDayNum = getDayNumber();
+  if (freshDayNum === currentDayNum) return;
+  currentDayNum = freshDayNum;
+  renderClueOfDay();
+  rebuildMemories(true);
+  renderStarPanel();
+  renderMissions();
+  renderStats();
+}, 60000);
 
 /* ============================================================
    CLASSIFIED FILE MODAL
