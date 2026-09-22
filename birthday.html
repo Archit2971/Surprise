@@ -16,7 +16,7 @@
 .container{width:min(1060px,calc(100% - 40px));margin:auto}section{padding:90px 0}.eyebrow{letter-spacing:.28em;text-transform:uppercase;font-size:.68rem;font-weight:700;color:var(--muted)}h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif}h1{font-size:clamp(4rem,11vw,8rem);line-height:1.08;font-weight:500;margin:22px 0}h1 .accent{display:inline-block;margin-top:.15em}h2{font-size:clamp(2.5rem,5vw,4rem);font-weight:500;margin:0 0 14px}p{line-height:1.8;color:var(--muted)}.accent{color:var(--pink)}.glass{background:var(--card);border:1px solid var(--border);border-radius:28px;backdrop-filter:blur(16px);box-shadow:0 25px 70px -50px rgba(138,108,240,.6)}
 .hero{min-height:100vh;display:flex;align-items:center;text-align:center}.hero-inner{width:min(900px,100%);margin:auto}.hero-sub{max-width:650px;margin:0 auto 35px;font-size:1.05rem}.center{text-align:center}.section-lead{max-width:680px;margin:0 auto 45px}
 .memory-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.memory{overflow:hidden;min-height:330px;display:flex;flex-direction:column}.photo{height:220px;background:linear-gradient(135deg,rgba(138,108,240,.28),rgba(240,168,214,.14));display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;overflow:hidden}.photo img{width:100%;height:100%;object-fit:cover;display:block}.memory-body{padding:20px 21px 24px}.memory-body h3{font-size:1.65rem;margin:0 0 7px}.memory-body p{margin:0;font-size:.88rem}
-.gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}.gallery-item{min-height:240px;border-radius:22px;overflow:hidden;border:1px solid var(--border);background:var(--card)}.gallery-item:nth-child(1){grid-column:span 7}.gallery-item:nth-child(2){grid-column:span 5}.gallery-item:nth-child(3){grid-column:span 5}.gallery-item:nth-child(4){grid-column:span 7}.gallery-item:nth-child(5),.gallery-item:nth-child(6),.gallery-item:nth-child(7){grid-column:span 4}.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease}.gallery-item:hover img{transform:scale(1.04)}.photo-placeholder{height:100%;min-height:240px;display:grid;place-items:center;color:var(--dim);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(135deg,rgba(138,108,240,.18),rgba(240,168,214,.07))}
+.gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}.gallery-item{min-height:240px;border-radius:22px;overflow:hidden;border:1px solid var(--border);background:var(--card)}.gallery-item:nth-child(1){grid-column:span 7}.gallery-item:nth-child(2){grid-column:span 5}.gallery-item:nth-child(3){grid-column:span 5}.gallery-item:nth-child(4){grid-column:span 7}.gallery-item:nth-child(5),.gallery-item:nth-child(6),.gallery-item:nth-child(7){grid-column:span 4}.gallery-item:nth-child(8),.gallery-item:nth-child(9),.gallery-item:nth-child(10){grid-column:span 4}.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease}.gallery-item:hover img{transform:scale(1.04)}.photo-placeholder{height:100%;min-height:240px;display:grid;place-items:center;color:var(--dim);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(135deg,rgba(138,108,240,.18),rgba(240,168,214,.07))}
 .jokes{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.joke{padding:25px}.joke-number{color:var(--pink);font-size:.7rem;letter-spacing:.15em}.joke h3{font-size:1.8rem;margin:10px 0 5px}
 .letter{max-width:800px;margin:auto;padding:clamp(30px,6vw,65px);font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.15rem,2vw,1.35rem);line-height:1.9}.letter p{font-family:inherit;font-size:inherit;color:rgba(245,241,251,.82)}.signature{font-style:italic;color:var(--pink)!important;margin-top:32px}.ending{text-align:center;padding-bottom:130px}.ending-star{font-size:2.4rem;display:block;margin-bottom:20px;filter:drop-shadow(0 0 14px rgba(240,168,214,.7))}.footer-note{font-size:.75rem;color:var(--dim);margin-top:45px}
 @media(max-width:760px){section{padding:70px 0}.container{width:min(100% - 28px,1060px)}.memory-grid{grid-template-columns:1fr}.photo{height:250px}.jokes{grid-template-columns:1fr}.gallery{grid-template-columns:1fr 1fr}.gallery-item:nth-child(n){grid-column:span 1}.gallery-item:first-child{grid-column:span 2}.orb.mid{display:none}}@media(max-width:480px){.gallery{display:block}.gallery-item{margin-bottom:12px}.gallery-item,.photo-placeholder{min-height:260px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
@@ -116,43 +116,33 @@
     <div class="gallery-item"><img src="assets/photo-08.jpg" alt="Our photo 8"></div>
     <div class="gallery-item"><img src="assets/photo-09.jpg" alt="Our photo 9"></div>
     <div class="gallery-item"><img src="assets/photo-10.jpg" alt="Our photo 10"></div>
+    <div class="gallery-item"><img src="assets/photo-11.jpg" alt="Our photo 11"></div>
+    <div class="gallery-item"><img src="assets/photo-12.jpg" alt="Our photo 12"></div>
+    <div class="gallery-item"><img src="assets/photo-13.jpg" alt="Our photo 13"></div>
   </div>
 </div></section>
-
-<section><div class="container">
-  <div class="eyebrow">Chapter three</div><h2>Things that are very <span class="accent">you</span></h2>
-  <div class="jokes">
-    <article class="joke glass"><div class="joke-number">01 · 🫵🏻</div><h3>Professional Ragebaiter™</h3><p>Starts the fight and then somehow becomes the innocent party.</p></article>
-    <article class="joke glass"><div class="joke-number">02 · 🙄</div><h3>The signature reaction</h3><p>A response capable of conveying approximately seventeen different emotions.</p></article>
-    <article class="joke glass"><div class="joke-number">03 · 🦇</div><h3>Batman × Kitty</h3><p>One keychain, one sticker pack, and an unreasonable amount of lore.</p></article>
-    <article class="joke glass"><div class="joke-number">04 · 🎨</div><h3>The sketch incident</h3><p>A bet was won. The prize was never collected. The case remains open.</p></article>
-    <article class="joke glass"><div class="joke-number">05 · 🎵</div><h3>Dildara protocol</h3><p>Whenever you win, apparently I am contractually obligated to sing it.</p></article>
-    <article class="joke glass"><div class="joke-number">06 · 📱</div><h3>The reel economy</h3><p>Neither of us knows how many have been exchanged. It is probably too many.</p></article>
-  </div>
-</div></section>
-
 
 <section><div class="container">
   <div class="eyebrow">The official records</div>
   <h2>PG Archives™</h2>
   <p class="section-lead">A highly scientific documentation of events that absolutely did not need to become lore.</p>
   <div class="lore-grid">
-    <article class="lore-card glass" data-lore="CASE #001 · The Maggie Incident — Somehow the best conversations always happened when food was involved.">
+    <article class="lore-card glass" data-lore="CASE #001 · The Maggie Incident: Somehow the best conversations always happened when food was involved.">
       <div class="case">CASE #001</div><h3>The Maggie Incident 🍜</h3><p>Status: still happening.</p>
     </article>
-    <article class="lore-card glass" data-lore="CASE #002 · Food Picture Revenge — A direct violation of the no-food-pictures treaty. The treaty was never recovered.">
+    <article class="lore-card glass" data-lore="CASE #002 · Food Picture Revenge: A direct violation of the no-food-pictures treaty. The treaty was never recovered.">
       <div class="case">CASE #002</div><h3>Food Picture Revenge 🍕</h3><p>Status: unresolved.</p>
     </article>
-    <article class="lore-card glass" data-lore="CASE #003 · The Sketch Bet — The bet was won. The prize was never collected. This remains suspicious.">
+    <article class="lore-card glass" data-lore="CASE #003 · The Sketch Bet: The bet was won. The prize was collected. This remains suspicious.">
       <div class="case">CASE #003</div><h3>The Sketch Bet 🎨</h3><p>Status: open investigation.</p>
     </article>
-    <article class="lore-card glass" data-lore="CASE #004 · Ragebait — Evidence suggests both parties participated. One party continues to deny everything.">
+    <article class="lore-card glass" data-lore="CASE #004 · Ragebait: Evidence suggests both parties participated. One party continues to deny everything.">
       <div class="case">CASE #004</div><h3>Ragebait 🫵🏻</h3><p>Status: ongoing investigation.</p>
     </article>
-    <article class="lore-card glass" data-lore="CASE #005 · Batman × Hello Kitty — Two completely unrelated universes somehow became part of the same lore.">
+    <article class="lore-card glass" data-lore="CASE #005 · Batman × Hello Kitty: Two completely unrelated universes somehow became part of the same lore.">
       <div class="case">CASE #005</div><h3>Batman × Kitty 🦇</h3><p>Status: classified.</p>
     </article>
-    <article class="lore-card glass" data-lore="CASE #006 · Dildara Protocol — Triggered whenever a certain person wins an argument. Frequency: unfortunately high.">
+    <article class="lore-card glass" data-lore="CASE #006 · Dildara Protocol: Triggered whenever a certain person wins an argument. Frequency: unfortunately high.">
       <div class="case">CASE #006</div><h3>Dildara Protocol 🎵</h3><p>Status: automatically triggered.</p>
     </article>
   </div>
